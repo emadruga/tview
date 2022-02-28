@@ -1,17 +1,77 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import { TradingViewEmbed, widgetType } from "react-tradingview-embed";
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+const symList = [
+  {
+    proName: "PEPPERSTONE:VIX",
+    title: "VIX"
+  },
+  {
+    proName: "PEPPERSTONE:US500",
+    title: "S&P500"
+  },
+  {
+    proName: "PEPPERSTONE:NAS100",
+    title: "NASDAQ"
+  },
+  {
+    proName: "EIGHTCAP:USDBRL",
+    title: "Dólar"
+  },
+  {
+    proName: "OANDA:EURUSD",
+    title: "EURUSD"
+  },
+  {
+    proName: "OANDA:GBPUSD",
+    title: "GBPUSD"
+  }
+];
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+const App = () => {
+  return(
+    <div className="ui container">
+          {/* <TradingViewEmbed
+            widgetType={widgetType.SCREENER}
+            widgetConfig={{
+              width: "100%",
+              colorTheme: "light",
+              locale: "br",
+              autosize: true,
+              symbols: symList
+            }}
+          /> */}
+            
+          <TradingViewEmbed
+              widgetType={widgetType.ADVANCED_CHART}
+              widgetConfig={{
+                interval: "1H",
+                colorTheme: "light",
+                locale: "br",
+                width: "100%",
+                symbol: "PEPPERSTONE:US500",
+                //studies: [
+                //  "MACD@tv-basicstudies",
+                //  "StochasticRSI@tv-basicstudies",
+                //  "TripleEMA@tv-basicstudies"
+                //]
+              }}
+          />
+          <TradingViewEmbed
+            widgetType={widgetType.TICKER_TAPE}
+            widgetConfig={{
+              showSymbolLogo: true,
+              isTransparent: true,
+              locale: "br",
+              displayMode: "adaptive",
+              colorTheme: "light",
+              autosize: true,
+              symbols: symList
+            }}
+          />
+    </div>
+  );
+};
+
+ReactDOM.render(<App />, document.querySelector("#root"));
